@@ -29,7 +29,7 @@ class ClangTidyConverter:
     # We only create a new error when we encounter one of those.
     main_error_identifier = re.compile(r'\[[\w\-,\.]+\]$')
 
-    def __init__(self, basename):
+    def __init__(self, basename = ''):
         self.basename = basename
 
     def print_junit_file(self, output_file):
@@ -113,5 +113,6 @@ if __name__ == "__main__":
         logging.error(
             "  base-filename-path: Removed from the filenames to make nicer paths.")
         sys.exit(1)
-    converter = ClangTidyConverter(sys.argv[1])
-    converter.convert(sys.stdin, sys.stdout)
+    file = open(sys.argv[1], 'r')
+    converter = ClangTidyConverter()
+    converter.convert(file, sys.stdout)
